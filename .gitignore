@@ -1,0 +1,122 @@
+# Dependencies
+node_modules/
+**/node_modules/
+**/.cache/
+**/node_modules/.cache/
+ccfront/node_modules/.cache/
+ccfront/node_modules/.cache/default-development/
+*.pack
+
+# Build outputs
+/build/
+/dist/
+/.next/
+/out/
+ccfront/build/
+ccfront/dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+backend/.env
+ccfront/.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+*.log
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing
+/coverage/
+/.nyc_output/
+/cypress/videos/
+/cypress/screenshots/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.tmp/
+tmp/
+
+# Package manager files
+yarn.lock
+package-lock.json
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Build caches
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+.cache/
+.parcel-cache/
+
+# Production bundles
+*.bundle.js
+*.bundle.js.map
+*.chunk.js
+*.chunk.js.map
+
+# Development server files
+ccfront/node_modules/.cache/default-development/
+**/*.pack
+
+# Backend specific
+backend/dist/
+backend/build/
+backend/logs/
+backend/uploads/
+
+# Frontend specific
+ccfront/.cache/
+ccfront/build/
+ccfront/dist/
+ccfront/coverage/
+
+# Optional: Static files that should be tracked
+!ccfront/public/
+!backend/public/
+
+# Misc
+*.pem
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.vercel
+.netlify
+*.tgz
+.grunt
+bower_components
