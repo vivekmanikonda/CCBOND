@@ -46,19 +46,19 @@ const Enquiry = () => {
                                     <h1 className='font-bold text-4xl mt-7'>{enquiry.Productname}</h1>
                                     <ul className="mt-3 text-gray-700 text-[20px]  p-4">
                                         <li >
-                                            <span className="font-semibold ">CAS Number:</span> 105-38-7
+                                            <span className="font-semibold ">CAS Number:</span> {enquiry.Casno}
                                         </li>
                                         <li className='mt-2'>
-                                            <span className="font-semibold ">Quantity:</span> 200kg
+                                            <span className="font-semibold ">Quantity:</span> {enquiry.Quantity}
                                         </li>
                                         <li className='mt-2'>
-                                            <span className="font-semibold ">Purity:</span> 98%
+                                            <span className="font-semibold ">Purity:</span> {enquiry.Location}
                                         </li>
                                         <li className='mt-2'>
-                                            <span className="font-semibold ">Need:</span> 3kg
+                                            <span className="font-semibold ">Need:</span> {enquiry.Purity}
                                         </li>
                                         <li className='mt-2'>
-                                            <span className="font-semibold ">Posted:</span> 30 Sep 2024
+                                            <span className="font-semibold ">Posted:</span> 30
                                         </li>
                                         <li className='mt-6 mb-5'>
                                             <button className="p-2 bg-black text-white rounded-md text-[16px] hover:bg-gray-700 transition duration-200 ease-in-out shadow-sm">

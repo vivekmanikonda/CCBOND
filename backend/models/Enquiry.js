@@ -48,6 +48,10 @@ const EnquirySchema = new mongoose.Schema({
             type: String,
             required: true,
         },
+        CreatedAt: {
+            type: Date,
+            default: Date.now
+        }
     },
 
 

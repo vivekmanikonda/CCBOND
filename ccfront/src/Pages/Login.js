@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import Logo from './images/logo.png';
 import backgroundImage from './images/bglogin.jpg';
 import { Link, useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const [error, setError] = useState(null); // To store error messages
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Create the login data
         const loginData = {
             email: email,
             Password: Password,
         };
 
         try {
-            // Send request to login API
             const response = await fetch('http://localhost:3000/auth/login', {
                 method: 'POST',
                 headers: {
@@ -28,9 +28,12 @@ const Login = () => {
                 body: JSON.stringify(loginData),
             });
 
-            // Check if response is OK 
+            // Check if response is OK
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                const errorMessage = `Login failed! Status: ${response.status}`;
+                const errorData = await response.json(); // Get  error from backend
+                setError(errorData.Message); // Set backend message 
+                throw new Error(errorMessage);
             }
 
             // Parse the JSON response
@@ -41,12 +44,10 @@ const Login = () => {
                 localStorage.setItem('authToken', result.token);
                 localStorage.setItem('user', JSON.stringify(result.user));
                 navigate('/Home');
-
+            } else {
+                console.error("No token in response");
+                setError("No token received from server.");
             }
-            else {
-                console.log("No token in response");
-            }
-
         } catch (error) {
             console.error('Login Failed:', error);
         }
@@ -59,6 +60,12 @@ const Login = () => {
             <form className="shadow-2xl rounded-lg bg-transparent p-8 bg-opacity-90" onSubmit={handleSubmit}>
                 <div className="flex flex-col items-center justify-center gap-2">
                     <img src={Logo} alt="logo" className="w-24 h-24" />
+
+                    {/* Display error alert if there is an error */}
+                    {error && (
+                        <Alert severity="error">{error}</Alert>
+                    )}
+
                     <label>
                         Email
                         <input
@@ -92,15 +99,14 @@ const Login = () => {
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
                     />
-                    <span className='text-gray-300'>Remember Me</span>
+                    <span className="text-gray-300">Remember Me</span>
                 </label>
-                <label
-                    className='text-white'>Don't have an Account?<Link to="/register" className='text-blue-600'>Register Now</Link><br />
+                <label className="text-white">
+                    Don't have an Account?{' '}
+                    <Link to="/register" className="text-blue-600">
+                        Register Now
+                    </Link>
                 </label>
-                <label
-                    className='text-white'>Developing HomePage<Link to="/Home" className='text-blue-600'>Develop</Link><br />
-                </label>
-
             </form>
         </div>
     );

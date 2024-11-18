@@ -27,6 +27,7 @@ exports.RegisterUser = async (req, res) => {
             CompanyUrl,
             PhoneNumber
         });
+        console.log("created user");
 
         // Success message with generated token
         res.status(201).json({
@@ -58,7 +59,7 @@ exports.LoginUser = async (req, res) => {
         console.log("User found:", userExists);
 
         if (!userExists) {
-            return res.status(404).json({ Message: "User Not Found" });
+            return res.status(400).json({ Message: "User Not Found" });
         }
 
         // Verify the password
@@ -72,7 +73,7 @@ exports.LoginUser = async (req, res) => {
 
         const isMatch = await bcrypt.compare(Password, userExists.Password);
         if (!isMatch) {
-            return res.status(401).json({ Message: "Password doesn't match" });
+            return res.status(400).json({ Message: "Password doesn't match" });
         }
 
         // Login successful
