@@ -11,7 +11,9 @@ const PORT = 3000; // Set port
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',  // Allow frontend to access the backend
+}));
 app.use(express.json());
 
 // Routes

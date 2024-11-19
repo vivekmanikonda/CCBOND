@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const argon2 = require('argon2');
 const User = require('../models/User');
 const generateToken = require('../generateToken');
 
@@ -16,7 +16,7 @@ exports.RegisterUser = async (req, res) => {
         }
 
         // Hash the password before saving
-        const hashedPassword = await bcrypt.hash(Password, 20); // 20 is the salt rounds
+        const hashedPassword = await argon2.hash(Password); // 20 is the salt rounds
 
         // Create a new user
         const user = await User.create({
@@ -59,7 +59,7 @@ exports.LoginUser = async (req, res) => {
         console.log("User found:", userExists);
 
         if (!userExists) {
-            return res.status(400).json({ Message: "User Not Found" });
+            return res.status(400).json({ Message: "User Not Found" })
         }
 
         // Verify the password
@@ -71,7 +71,7 @@ exports.LoginUser = async (req, res) => {
             return res.status(400).json({ Message: "User found, but password is missing" });
         }
 
-        const isMatch = await bcrypt.compare(Password, userExists.Password);
+        const isMatch = await argon2.verify(userExists.Password, Password);
         if (!isMatch) {
             return res.status(400).json({ Message: "Password doesn't match" });
         }

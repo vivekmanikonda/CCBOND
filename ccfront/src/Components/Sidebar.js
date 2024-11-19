@@ -1,6 +1,6 @@
 import React from 'react';
 import { Home, Search, Package, ShoppingCart, UserCircle, LogOut } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Sidebar = () => {
@@ -11,6 +11,12 @@ const Sidebar = () => {
         { icon: Package, label: 'Products', path: '/products' },
         { icon: UserCircle, label: 'Account', path: '/account' },
     ];
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.removeItem('authToken');
+        navigate('/login');
+
+    }
 
     return (
         <motion.div
@@ -55,7 +61,7 @@ const Sidebar = () => {
                     <p className="text-xs text-gray-500">mahanthreddy@gmail.com</p>
                 </div>
                 <button className=" text-gray-600 hover:text-red-600 ">
-                    <LogOut className=" w-5 h-5 mr-2" />
+                    <LogOut className=" w-5 h-5 mr-2" onClick={logout} />
                 </button>
             </div>
         </motion.div>

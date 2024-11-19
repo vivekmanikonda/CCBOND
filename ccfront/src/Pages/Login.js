@@ -13,6 +13,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
 
         const loginData = {
             email: email,
@@ -36,7 +37,7 @@ const Login = () => {
                 throw new Error(errorMessage);
             }
 
-            // Parse the JSON response
+
             const result = await response.json();
             console.log('Login Successful:', result);
 

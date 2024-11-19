@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "argon2": "^0.41.1",
     "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend"
   }
 }

@@ -10,15 +10,15 @@ exports.createEnquiry = async (req, res) => {
     if (!Productname || !Location || !Casno) {
         return res.status(400).json({ message: "Please fill all required fields.'" })
     }
-    
+
     // if there it will create enquiry
     try {
         const formData = new EnquiryModel({
             Productname, Casno, Quantity, Purity, Description, Quote, Document, Location, Structure
         });
-        const savedEnquiry = formData.save();
+        const savedEnquiry = await formData.save();
         return res.status(400).json({ message: "FORM CREATED SUCCESSFULLY", savedEnquiry })
-        
+
     }
     catch (err) {
         res.status(500).json({ message: "ERROR OCCURED", err })
