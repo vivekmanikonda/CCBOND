@@ -14,9 +14,10 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const logout = () => {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
         navigate('/login');
-
     }
+    const user = JSON.parse(localStorage.getItem('user'))///getting things we need
 
     return (
         <motion.div
@@ -24,14 +25,19 @@ const Sidebar = () => {
             animate={{ x: 0 }}
             className="fixed left-0 top-0 h-full w-64 bg-white shadow-lg flex flex-col"
         >
-            <div className="p-6 border-b">
+
+            <div className=" p-6 border-b ">
                 <motion.h1
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent "
                 >
                     CCBOND
+                    <button className=" text-gray-600 hover:text-red-600 ml-20">
+                        <LogOut className=" w-5 h-5 " onClick={logout} />
+                    </button>
                 </motion.h1>
+
             </div>
 
             <nav className="flex-1 py-6">
@@ -51,18 +57,16 @@ const Sidebar = () => {
                 })}
             </nav>
 
-            <div className="flex items-center p-2 bg-gray-50 rounded-lg">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-sm font-medium text-blue-600">MG</span>
+            <div className="flex items-center p-3 bg-gray-50 rounded-lg">
+                <div className="w-8 h-9 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-2xl font-medium text-blue-600">{user?.name?.[0]}</span>
                 </div>
                 <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">Mahanth Reddy Gurram</p>
-                    <p className="text-xs text-gray-500">SRISYN Solutions Inc.</p>
-                    <p className="text-xs text-gray-500">mahanthreddy@gmail.com</p>
+                    <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+
+                    <p className="text-xs text-gray-500">{user?.email}</p>
                 </div>
-                <button className=" text-gray-600 hover:text-red-600 ">
-                    <LogOut className=" w-5 h-5 mr-2" onClick={logout} />
-                </button>
+
             </div>
         </motion.div>
     );

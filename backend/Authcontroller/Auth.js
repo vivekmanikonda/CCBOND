@@ -36,6 +36,7 @@ exports.RegisterUser = async (req, res) => {
             user: {
                 Name: user.Name,
                 Email: user.email,
+                CompanyName: user.CompanyName,
                 id: user.id
             }
         });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from './images/logo.png';
 import backgroundImage from './images/bglogin.jpg';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,9 +7,21 @@ import Alert from '@mui/material/Alert';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
     const [error, setError] = useState(null); // To store error messages
+    const [logined, setLogined] = useState(null); // To store error messages
+    const [rememberMe, setRememberMe] = useState(false); // To manage Remember Me checkbox state
     const navigate = useNavigate();
+
+    // Effect to check if there's any saved email and password
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('email');
+        const savedPassword = localStorage.getItem('Password');
+        if (savedEmail && savedPassword) {
+            setEmail(savedEmail);
+            setPassword(savedPassword);
+            setRememberMe(true);
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,11 +44,10 @@ const Login = () => {
             // Check if response is OK
             if (!response.ok) {
                 const errorMessage = `Login failed! Status: ${response.status}`;
-                const errorData = await response.json(); // Get  error from backend
-                setError(errorData.Message); // Set backend message 
+                const errorData = await response.json(); // Get error from backend
+                setError(errorData.Message); // Set backend message
                 throw new Error(errorMessage);
             }
-
 
             const result = await response.json();
             console.log('Login Successful:', result);
@@ -44,13 +55,27 @@ const Login = () => {
             if (result.token) {
                 localStorage.setItem('authToken', result.token);
                 localStorage.setItem('user', JSON.stringify(result.user));
-                navigate('/Home');
+
+                // If Remember Me is checked, store email and password
+                if (rememberMe) {
+                    localStorage.setItem('email', email);
+                    localStorage.setItem('Password', Password);
+                } else {
+                    // Clear credentials 
+                    localStorage.removeItem('email');
+                    localStorage.removeItem('Password');
+                }
+                setLogined("Login Successful! Redirecting...");
+                navigate('/Home'); 
+
+
             } else {
                 console.error("No token in response");
                 setError("No token received from server.");
             }
         } catch (error) {
             console.error('Login Failed:', error);
+            setError('An error occurred. Please try again.');
         }
     };
 
@@ -65,6 +90,9 @@ const Login = () => {
                     {/* Display error alert if there is an error */}
                     {error && (
                         <Alert severity="error">{error}</Alert>
+                    )}
+                    {logined && (
+                        <Alert severity="success">Login Successful!!</Alert>
                     )}
 
                     <label>
@@ -93,6 +121,7 @@ const Login = () => {
                         Submit
                     </button>
                 </div>
+
                 <label className="flex items-center space-x-2 mt-2">
                     <input
                         type="checkbox"
@@ -102,10 +131,17 @@ const Login = () => {
                     />
                     <span className="text-gray-300">Remember Me</span>
                 </label>
+
                 <label className="text-white">
-                    Don't have an Account?{' '}
+                    Don't have an Account?
                     <Link to="/register" className="text-blue-600">
                         Register Now
+                    </Link>
+                </label><br />
+                <label className="text-white">
+                    Developing ???
+                    <Link to="/Enquiry" className="text-blue-600">
+                        Developerrr
                     </Link>
                 </label>
             </form>

@@ -1,39 +1,42 @@
+// Controller: Enquiry Controller (Authcontroller/Enq.js)
 const EnquiryModel = require('../models/Enquiry');
-const Express = require('express');
 
+// Create enquiry
 exports.createEnquiry = async (req, res) => {
-    //req data
-    const {
-        Productname, Casno, Quantity, Purity, Description, Quote, Document, Location, Structure } = req.body;
-    //checking the data wheather it is there or not 
-    console.log(req.body)
+    const { Productname, Casno, Quantity, Purity, Description, Quote, Document, Location, Structure } = req.body;
+
     if (!Productname || !Location || !Casno) {
-        return res.status(400).json({ message: "Please fill all required fields.'" })
+        return res.status(400).json({ message: "Please fill all required fields." });
     }
 
-    // if there it will create enquiry
     try {
-        const formData = new EnquiryModel({
-            Productname, Casno, Quantity, Purity, Description, Quote, Document, Location, Structure
+        const newEnquiry = new EnquiryModel({
+            Productname,
+            Casno,
+            Quantity,
+            Purity,
+            Description,
+            Quote,
+            Document,
+            Location,
+            Structure
         });
-        const savedEnquiry = await formData.save();
-        return res.status(400).json({ message: "FORM CREATED SUCCESSFULLY", savedEnquiry })
 
+        const savedEnquiry = await newEnquiry.save();
+        res.status(201).json({ message: "Enquiry created successfully!", enquiry: savedEnquiry });
+    } catch (err) {
+        console.error("Error creating enquiry:", err);
+        res.status(500).json({ message: "Error creating enquiry.", error: err });
     }
-    catch (err) {
-        res.status(500).json({ message: "ERROR OCCURED", err })
+};
 
-    }
-}
-
-exports.getEnquiry = async (req, res) => {
+// Get enquiries
+exports.getEnquiries = async (req, res) => {
     try {
-        const enquiries = await EnquiryModel.find();
-        return res.status(201).json(enquiries);
+        const enquiries = await EnquiryModel.find({}, '-Structure -Document'); // Exclude binary fields
+        res.json(enquiries);
+    } catch (err) {
+        console.error("Error fetching enquiries:", err);
+        res.status(500).json({ message: "Error fetching enquiries." });
     }
-    catch (error) {
-        res.status(500).json({ message: "Some error in getenquiries", error })
-
-    }
-}
-
+};

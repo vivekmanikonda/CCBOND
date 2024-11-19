@@ -59,8 +59,8 @@ const Form = () => {
                 Document,
                 Structure
             });
-            setSuccessMesaage("Form submitted Successfully!!");
             navigate('/Enquiry');
+            setSuccessMesaage("Form submitted Successfully!!");
             console.log("Form Submitted", response.data);
         }
         catch (error) {
@@ -91,6 +91,7 @@ const Form = () => {
 
                         {/* Form Fields */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            {successMessage && <Alert severity="success">Form Submitted</Alert>}
 
                             {/* Product Name */}
                             <label className="flex flex-col">
@@ -207,7 +208,6 @@ const Form = () => {
                                 >
                                     Submit
                                 </button>
-                                {successMessage && <Alert severity="success">Form Submitted</Alert>}
                             </div>
                         </div>
                     </form>
