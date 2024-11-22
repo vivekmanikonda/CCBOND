@@ -44,7 +44,7 @@ const Enquiry = () => {
         <>
             <Search />
             <div className='flex justify-end'>
-                <button className='bg-slate-300 p-2' onClick={openForm}>ADD ENQUIRY</button>
+                <button className='bg-slate-300 p-2' onClick={openForm} onSubmit={handleNewEnquiry}>ADD ENQUIRY</button>
             </div>
             <div className="flex items-center justify-center ml-72">
                 <div className="flex flex-col h-auto w-[770px] rounded-lg p-6 space-y-6">

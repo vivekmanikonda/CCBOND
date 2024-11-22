@@ -33,7 +33,7 @@ exports.createEnquiry = async (req, res) => {
 // Get enquiries
 exports.getEnquiries = async (req, res) => {
     try {
-        const enquiries = await EnquiryModel.find({}, '-Structure -Document'); // Exclude binary fields
+        const enquiries = await EnquiryModel.find({}); // Exclude binary fields
         res.json(enquiries);
     } catch (err) {
         console.error("Error fetching enquiries:", err);

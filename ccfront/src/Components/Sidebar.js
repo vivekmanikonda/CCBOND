@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Search, Package, ShoppingCart, UserCircle, LogOut } from 'lucide-react';
+import { Home, Search, UserCircle, LogOut } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -7,8 +7,8 @@ const Sidebar = () => {
     const menuItems = [
         { icon: Home, label: 'Home', path: '/Home' },
         { icon: Search, label: 'Enquiries', path: '/Enquiry' },
-        { icon: ShoppingCart, label: 'Sales', path: '/sales' },
-        { icon: Package, label: 'Products', path: '/products' },
+        //{ icon: ShoppingCart, label: 'Sales', path: '/sales' },
+        //{ icon: Package, label: 'Products', path: '/products' },
         { icon: UserCircle, label: 'Account', path: '/account' },
     ];
     const navigate = useNavigate();
@@ -59,10 +59,10 @@ const Sidebar = () => {
 
             <div className="flex items-center p-3 bg-gray-50 rounded-lg">
                 <div className="w-8 h-9 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-2xl font-medium text-blue-600">{user?.name?.[0]}</span>
+                    <span className="text-2xl font-medium text-blue-600">{user?.Name?.[0]}</span>
                 </div>
                 <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+                    <p className="text-sm font-medium text-gray-900">{user?.Name}</p>
 
                     <p className="text-xs text-gray-500">{user?.email}</p>
                 </div>

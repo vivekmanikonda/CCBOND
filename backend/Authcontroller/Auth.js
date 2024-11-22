@@ -83,8 +83,10 @@ exports.LoginUser = async (req, res) => {
             token: generateToken(userExists.id),
             user: {
                 id: userExists.id,
-                name: userExists.Name,
-                email: userExists.email
+                Name: userExists.Name,
+                email: userExists.email,
+                CompanyName: userExists.CompanyName
+
             }
         });
     } catch (error) {
