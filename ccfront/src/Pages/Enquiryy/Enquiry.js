@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Building2, CircleArrowRight } from 'lucide-react';
 import AllSettings from '../../Components/AllSettings';
 
+
 const Enquiry = () => {
     const navigate = useNavigate();
     const openForm = () => {
